@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: ge-db
+    restart: always
+    environment:
+      POSTGRES_USER: ge
+      POSTGRES_PASSWORD: ge123
+      POSTGRES_DB: ge_db
+    ports:
+      - "5432:5432"
+    volumes:
+        - postgres_data:/var/lib/postgresql/data
+        - ./ge-db-init:/docker-entrypoint-initdb.d
+  backend:
+    build:
+      context: ./ge-backend
+      dockerfile: Dockerfile
+    container_name: ge-backend
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./ge-backend:/app
+      - /app/target
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/ge_db
+      - SPRING_DATASOURCE_USERNAME=ge
+      - SPRING_DATASOURCE_PASSWORD=ge123
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
