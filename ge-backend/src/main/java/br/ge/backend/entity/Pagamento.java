@@ -17,7 +17,10 @@ public abstract class Pagamento implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
+    @Column(nullable = false)
+    private Double valor;
 
     @OneToMany(mappedBy = "pagamento")
     private List<Conta> contas;

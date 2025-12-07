@@ -1,11 +1,13 @@
 package br.ge.backend.entity;
 
+import br.ge.backend.enums.StatusConta;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -40,5 +42,13 @@ public class Conta implements Serializable {
         inverseJoinColumns = @JoinColumn(name = "caixa_id")
     )
     private List<Caixa> caixas;
+
+    @Enumerated(EnumType.STRING)
+    private StatusConta status = StatusConta.ABERTA;
+
+    @Column(name = "data_criacao", nullable = false, updatable = false)
+    private LocalDateTime dataCriacao = LocalDateTime.now();
+
+    private Double desconto = 0.0;
 
 }

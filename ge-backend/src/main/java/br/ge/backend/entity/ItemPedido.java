@@ -1,5 +1,6 @@
 package br.ge.backend.entity;
 
+import br.ge.backend.enums.StatusPreparo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,5 +29,8 @@ public class ItemPedido implements Serializable {
     @ManyToOne
     @JoinColumn(name = "item_cardapio_id")
     private ItemCardapio itemCardapio;
+
+    @Enumerated(EnumType.STRING)
+    private StatusPreparo status = StatusPreparo.PENDENTE;
 
 }
