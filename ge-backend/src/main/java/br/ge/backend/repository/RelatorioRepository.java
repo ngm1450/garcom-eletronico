@@ -16,7 +16,7 @@ import java.util.List;
 @Repository
 public interface RelatorioRepository extends JpaRepository<Pagamento, Long> {
 
-    @Query("SELECT new br.ge.backend.dto.FaturamentoDiarioDTO(TYPE(p).simpleName, SUM(p.valor)) " +
+    @Query("SELECT new br.ge.backend.dto.FaturamentoDiarioDTO(TYPE(p), SUM(p.valor)) " +
             "FROM Pagamento p " +
             "JOIN p.contas c " +
             "WHERE c.dataCriacao BETWEEN :inicio AND :fim " +
