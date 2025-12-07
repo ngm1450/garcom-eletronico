@@ -3,7 +3,8 @@ CREATE TABLE restaurantes (
 );
 
 CREATE TABLE pagamentos (
-    id BIGSERIAL PRIMARY KEY
+    id BIGSERIAL PRIMARY KEY,
+    valor DOUBLE PRECISION NOT NULL
 );
 
 CREATE TABLE clientes (

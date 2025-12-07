@@ -9,6 +9,9 @@ CREATE TABLE mesas (
 CREATE TABLE contas (
     id BIGSERIAL PRIMARY KEY,
     nome VARCHAR(255),
+    data_criacao TIMESTAMP DEFAULT NOW(),
+    status VARCHAR(50) DEFAULT 'ABERTA',
+    desconto DOUBLE PRECISION DEFAULT 0.0,
     pagamento_id BIGINT REFERENCES pagamentos(id),
     mesa_id BIGINT REFERENCES mesas(id)
 );
@@ -24,6 +27,7 @@ CREATE TABLE pedidos (
     numero INTEGER,
     horario_pedido TIMESTAMP(6),
     horario_entrega TIMESTAMP(6),
+    status VARCHAR(50) DEFAULT 'PENDENTE',
     conta_id BIGINT REFERENCES contas(id),
     cliente_id BIGINT REFERENCES clientes(id),
     cozinha_id BIGINT REFERENCES cozinhas(id)
@@ -32,6 +36,7 @@ CREATE TABLE pedidos (
 CREATE TABLE itens_pedido (
     id BIGSERIAL PRIMARY KEY,
     quantidade REAL,
+    status VARCHAR(50) DEFAULT 'PENDENTE',
     pedido_id BIGINT REFERENCES pedidos(id),
     item_cardapio_id BIGINT REFERENCES itens_cardapio(id)
 );
